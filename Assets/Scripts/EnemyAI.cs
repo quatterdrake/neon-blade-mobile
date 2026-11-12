@@ -55,7 +55,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // ---------- States ----------
 
     void DoPatrol()
     {
@@ -109,7 +108,6 @@ public class EnemyAI : MonoBehaviour
             SetState(CanSeePlayer() ? State.Chase : State.Patrol);
     }
 
-    // ---------- Helpers ----------
 
     void SetState(State newState)
     {
