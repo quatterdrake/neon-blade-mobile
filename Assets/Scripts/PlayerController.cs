@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     float facing = 1f;
     float dashTimer;
 
-    bool IsDashing => dashTimer > 0f;
+    public bool IsDashing => dashTimer > 0f;
 
     void Awake()
     {
@@ -58,18 +58,18 @@ public class PlayerController : MonoBehaviour
         return Physics2D.OverlapBox(feet, new Vector2(0.8f, 0.1f), 0f, groundLayer);
     }
 
-    void OnCollisionEnter2D(Collision2D c)
+    public void Die()
     {
-        if (!c.gameObject.CompareTag("Enemy")) return;
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-        if (IsDashing)
-        {
-            Destroy(c.gameObject);
-            if (enemyCounter != null) enemyCounter.EnemyKilled();
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+    void OnCollisionEnter2D(Collision2D c) { TryKill(c); }
+    void OnCollisionStay2D(Collision2D c)  { TryKill(c); }
+
+    void TryKill(Collision2D c)
+    {
+        if (!IsDashing || !c.gameObject.CompareTag("Enemy")) return;
+        Destroy(c.gameObject);
+        if (enemyCounter != null) enemyCounter.EnemyKilled();
     }
 }

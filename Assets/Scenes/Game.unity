@@ -767,6 +767,8 @@ GameObject:
   - component: {fileID: 395778693}
   - component: {fileID: 395778692}
   - component: {fileID: 395778691}
+  - component: {fileID: 395778695}
+  - component: {fileID: 395778696}
   m_Layer: 3
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -895,6 +897,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &395778695
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395778690}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 3
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &395778696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395778690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a93dba81a7f60749abc71fa0c186364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  patrolSpeed: 2
+  chaseSpeed: 4.5
+  patrolRange: 3
+  sightRange: 7
+  loseSightTime: 1.5
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 72
+  attackRange: 2
+  windupTime: 0.4
+  cooldownTime: 1
 --- !u!1 &450750533
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1033,8 @@ GameObject:
   - component: {fileID: 530205411}
   - component: {fileID: 530205410}
   - component: {fileID: 530205409}
+  - component: {fileID: 530205413}
+  - component: {fileID: 530205414}
   m_Layer: 3
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -1109,6 +1163,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &530205413
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530205408}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 3
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &530205414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530205408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a93dba81a7f60749abc71fa0c186364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  patrolSpeed: 2
+  chaseSpeed: 4.5
+  patrolRange: 3
+  sightRange: 7
+  loseSightTime: 1.5
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 72
+  attackRange: 2
+  windupTime: 0.4
+  cooldownTime: 1
 --- !u!1 &549495640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,9 +1828,9 @@ GameObject:
   - component: {fileID: 1157640022}
   - component: {fileID: 1157640021}
   - component: {fileID: 1157640027}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2169,6 +2273,8 @@ GameObject:
   - component: {fileID: 1764481108}
   - component: {fileID: 1764481107}
   - component: {fileID: 1764481106}
+  - component: {fileID: 1764481110}
+  - component: {fileID: 1764481111}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -2297,6 +2403,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1764481110
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764481105}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 3
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &1764481111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764481105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a93dba81a7f60749abc71fa0c186364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  patrolSpeed: 2
+  chaseSpeed: 4.5
+  patrolRange: 3
+  sightRange: 20
+  loseSightTime: 1.5
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 72
+  attackRange: 2
+  windupTime: 0.4
+  cooldownTime: 1
 --- !u!1 &1920957893
 GameObject:
   m_ObjectHideFlags: 0
