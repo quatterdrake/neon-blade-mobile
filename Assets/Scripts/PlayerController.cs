@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // find the counter automatically if the field was left empty
+        if (enemyCounter == null)
+            enemyCounter = FindFirstObjectByType<EnemyCounter>();
     }
 
     public void SetMove(float dir)
@@ -60,7 +64,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SaveManager.Data.deaths++;
+        SaveManager.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void OnCollisionEnter2D(Collision2D c) { TryKill(c); }
@@ -69,7 +75,17 @@ public class PlayerController : MonoBehaviour
     void TryKill(Collision2D c)
     {
         if (!IsDashing || !c.gameObject.CompareTag("Enemy")) return;
+
         Destroy(c.gameObject);
-        if (enemyCounter != null) enemyCounter.EnemyKilled();
+
+        if (enemyCounter != null)
+        {
+            Debug.Log("Enemy killed");
+            enemyCounter.EnemyKilled();
+        }
+        else
+        {
+            Debug.LogError("EnemyCounter not found! Add the EnemyCounter script to GameManager.");
+        }
     }
 }

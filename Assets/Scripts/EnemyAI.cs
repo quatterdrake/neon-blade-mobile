@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour
     public float windupTime = 0.4f;
     public float cooldownTime = 1f;
 
+public EnemyData data;
+
     State state = State.Patrol;
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -31,8 +33,20 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+    rb = GetComponent<Rigidbody2D>();
+    sr = GetComponent<SpriteRenderer>();
+
+    if (data != null)
+    {
+        patrolSpeed = data.patrolSpeed;
+        chaseSpeed = data.chaseSpeed;
+        patrolRange = data.patrolRange;
+        sightRange = data.sightRange;
+        loseSightTime = data.loseSightTime;
+        attackRange = data.attackRange;
+        windupTime = data.windupTime;
+        cooldownTime = data.cooldownTime;
+    }
     }
 
     void Start()

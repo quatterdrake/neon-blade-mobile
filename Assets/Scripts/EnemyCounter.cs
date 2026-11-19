@@ -15,12 +15,24 @@ public class EnemyCounter : MonoBehaviour
     public void EnemyKilled()
     {
         remaining--;
-        if (remaining <= 0) enemiesText.text = "Room clear!";
-        else UpdateText();
+        SaveManager.Data.totalKills++;
+        if (remaining <= 0) SaveManager.Data.roomsCleared++;
+
+        Debug.Log("EnemyKilled: totalKills now " + SaveManager.Data.totalKills);
+        SaveManager.Save();
+
+        if (enemiesText == null)
+        {
+            Debug.LogError("EnemyCounter: Enemies Text is not assigned on GameManager!");
+            return;
+        }
+
+        enemiesText.text = remaining <= 0 ? "Room clear!" : "Enemies: " + remaining;
     }
 
     void UpdateText()
     {
-        enemiesText.text = "Enemies: " + remaining;
+        if (enemiesText != null)
+            enemiesText.text = "Enemies: " + remaining;
     }
 }
