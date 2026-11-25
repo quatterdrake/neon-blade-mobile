@@ -30,6 +30,7 @@ public EnemyData data;
     float lostTimer;
     float attackTimer;
     bool hitDone;
+    float lastAlertTime = -10f;
 
     void Awake()
     {
@@ -125,6 +126,15 @@ public EnemyData data;
 
     void SetState(State newState)
     {
+        // sounds: the player hears the attack before it lands
+        if (newState == State.Attack)
+            AudioManager.Play("windup");                         // at the START of the wind-up
+        if (newState == State.Chase && state == State.Patrol && Time.time - lastAlertTime > 2f)
+        {
+            AudioManager.Play("alert");                          // "it has seen me"
+            lastAlertTime = Time.time;
+        }
+
         state = newState;
         lostTimer = 0f;
         attackTimer = 0f;
@@ -161,6 +171,7 @@ public EnemyData data;
         {
             if (h.collider.gameObject == gameObject) continue;   // skip self
             if (h.collider.CompareTag("Enemy")) continue;        // skip other enemies
+            if (h.collider.isTrigger) continue;                  // pickups do not block sight
             return h.collider.gameObject == player.gameObject;
         }
         return false;

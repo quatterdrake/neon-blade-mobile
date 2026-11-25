@@ -16,7 +16,11 @@ public class EnemyCounter : MonoBehaviour
     {
         remaining--;
         SaveManager.Data.totalKills++;
-        if (remaining <= 0) SaveManager.Data.roomsCleared++;
+        if (remaining <= 0)
+        {
+            SaveManager.Data.roomsCleared++;
+            AudioManager.PlayDelayed("win", 0.25f);   // after the hit sound, not on top of it
+        }
 
         Debug.Log("EnemyKilled: totalKills now " + SaveManager.Data.totalKills);
         SaveManager.Save();

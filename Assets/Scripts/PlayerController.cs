@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     float moveInput;
     float facing = 1f;
     float dashTimer;
+    bool wasGrounded = true;
+    float lastVy;
 
     public bool IsDashing => dashTimer > 0f;
 
@@ -35,16 +37,29 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         if (IsGrounded())
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            AudioManager.Play("jump");
+        }
     }
 
     public void Attack()
     {
-        if (!IsDashing) dashTimer = dashTime;
+        if (!IsDashing)
+        {
+            dashTimer = dashTime;
+            AudioManager.Play("dash");
+        }
     }
 
     void FixedUpdate()
     {
+        // landing thud: only after a real fall, not when walking off a tiny step
+        bool grounded = IsGrounded();
+        if (grounded && !wasGrounded && lastVy < -3f) AudioManager.Play("land");
+        wasGrounded = grounded;
+        lastVy = rb.linearVelocity.y;
+
         if (IsDashing)
         {
             dashTimer -= Time.fixedDeltaTime;
@@ -64,6 +79,10 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        // AudioManager survives the reload, so these sounds are not cut off
+        AudioManager.Play("death");
+        AudioManager.PlayDelayed("lose", 0.35f);
+
         SaveManager.Data.deaths++;
         SaveManager.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -77,6 +96,7 @@ public class PlayerController : MonoBehaviour
         if (!IsDashing || !c.gameObject.CompareTag("Enemy")) return;
 
         Destroy(c.gameObject);
+        AudioManager.Play("hit");
 
         if (enemyCounter != null)
         {

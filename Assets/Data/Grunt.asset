@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grunt
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   patrolSpeed: 2
-  chaseSpeed: 3
+  chaseSpeed: 8
   patrolRange: 3
   sightRange: 12
   loseSightTime: 1.5
